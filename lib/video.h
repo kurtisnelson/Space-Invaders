@@ -7,6 +7,8 @@
 
 #ifndef VIDEO_H_
 #define VIDEO_H_
+#include "gba.h"
+#include "color.h"
 #define REG_VCOUNT (*(REG *)0x04000006)
 #define REG_DISPCNT (*(REG *)0x04000000)
 #define DCNT_MODE3 0x0003
@@ -20,4 +22,5 @@ void drawRect(u32, u32, u32, u32, COLOR);
 void waitForVBlank();
 void drawImage3(int, int, int, int, const u16*);
 void autoDraw(const u16*);
+void vMode3();
 #endif /* VIDEO_H_ */

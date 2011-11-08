@@ -7,12 +7,19 @@
 #include "spaceinvaders.h"
 #include "images/title.h"
 #include "images/paused.h"
+#include "lib/dma.h"
+#include "lib/gba.h"
+#include "lib/video.h"
+#include "lib/input.h"
+
 u32 needReset;
+const COLOR gameScreen[38400] = {0};
+
 int
 main()
 {
   // Set the display mode properly
-  REG_DISPCNT = DCNT_MODE3 | DCNT_BG2;
+  vMode3();
   needReset = 1;
   while (1)
     {
@@ -31,30 +38,33 @@ main()
 void
 reset()
 {
-  autodraw(title);
+  autoDraw(title);
+  zeroMem((void *)gameScreen, (short)38400);
   needReset = 0;
 }
 
 void
 runGame()
 {
+
   while (1)
     {
-      drawRect(0,0,10,10,BLUE);
       if (KEY_DOWN_NOW(KEY_START)){
         KEY_RELEASED_WAIT(KEY_START);
         pauseGame();
       }
       if(needReset == 1 || resetCheck())
         return;
+      waitForVBlank();
+      autoDraw((u16 *)gameScreen);
     }
 }
 
 void
 pauseGame()
 {
-  drawImage3(20, 20, PAUSED_HEIGHT, PAUSED_WIDTH, paused);
-  drawRect(0,0,10,10,RED);
+  waitForVBlank();
+  drawImage3(40, 80, PAUSED_WIDTH, PAUSED_HEIGHT, paused);
   while (1)
     {
       if (KEY_DOWN_NOW(KEY_START)){

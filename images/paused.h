@@ -15,7 +15,6 @@
 
 #ifndef PAUSED_BITMAP_H
 #define PAUSED_BITMAP_H
-#include "paused.c"
 extern const unsigned short paused[5000];
 #define PAUSED_WIDTH 100
 #define PAUSED_HEIGHT 50

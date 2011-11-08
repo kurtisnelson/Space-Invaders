@@ -7,7 +7,7 @@
 
 #ifndef SPACEINVADERS_H_
 #define SPACEINVADERS_H_
-#include "lib/gba.c"
+#include "lib/gba.h"
 void runGame();
 void pauseGame();
 int resetCheck();

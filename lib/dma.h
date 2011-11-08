@@ -21,4 +21,6 @@
 #define DMA_VBLANK (1 << 0x1C)
 #define DMA_ENABLE (1 << 0x1F)
 #define DMA_DST_RELOAD (3 << 0x15)
+#define DMA_SRC_FIXED (2 << 0x17)
+void zeroMem(void *, short);
 #endif /* DMA_H_ */

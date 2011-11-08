@@ -12,7 +12,7 @@
  * 
  * All bug reports / feature requests are to be sent to Brandon (brandon.whitehead@gatech.edu)
  */
-
+#include "title.h"
 const unsigned short title[38400] =
 {
 	0x0000,0x0000,0x0000,0x0000,0x0000,0x0000,0x0000,0x0000,0x0000,0x0000,

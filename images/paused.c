@@ -12,7 +12,7 @@
  * 
  * All bug reports / feature requests are to be sent to Brandon (brandon.whitehead@gatech.edu)
  */
-
+#include "paused.h"
 const unsigned short paused[5000] =
 {
 	0x7ca0,0x7ca0,0x7ca0,0x7ca0,0x7ca0,0x7ca0,0x7ca0,0x7ca0,0x7ca0,0x7ca0,
