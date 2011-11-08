@@ -1,2 +1,6 @@
+*.o
+*.gba
+gbadeps
+*.elf
 .project
 .cproject
