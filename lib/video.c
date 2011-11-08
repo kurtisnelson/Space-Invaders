@@ -6,7 +6,8 @@
  */
 #include "color.h"
 #include "video.h"
-u16 *videoBuffer = (u16*) 0x06000000;
+#include "dma.h"
+u16 *videoBuffer = (u16 *) 0x06000000;
 
 void
 setPixel(u32 r, u32 c, COLOR color)
@@ -27,7 +28,7 @@ drawRect(u32 r, u32 c, u32 width, u32 height, COLOR color)
 }
 
 void
-wait_vsync()
+waitForVBlank()
 {
   while (REG_VCOUNT >= 160)
     ; // wait till VDraw
@@ -38,5 +39,16 @@ wait_vsync()
 void
 drawImage3(int r, int c, int width, int height, const u16* image)
 {
-  //TODO
+  REG_DMA3SAD = (u32) image;
+  REG_DMA3DAD = (u32) videoBuffer + (r*SCREEN_WIDTH+c);
+  REG_DMA3CNT = width;
+  REG_DMA3CNT |= DMA_ENABLE | DMA_16 | DMA_DST_RELOAD;
+}
+
+void autodraw(const u16 * screen)
+{
+  REG_DMA3SAD = (u32) screen;
+  REG_DMA3DAD = (u32) videoBuffer;
+  REG_DMA3CNT = SCREEN_WIDTH*SCREEN_HEIGHT;
+  REG_DMA3CNT |= DMA_ENABLE | DMA_16 | DMA_VBLANK | DMA_DST_RELOAD;
 }

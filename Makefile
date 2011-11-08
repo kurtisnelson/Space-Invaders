@@ -16,7 +16,7 @@ OFILES = spaceinvaders.o
 # The header files you have created.
 # This is necessary to determine when to recompile for files.
 # This should be a space (SPACE!) separated list of .h files
-HFILES = spaceinvaders.h lib/gba.h lib/input.h lib/color.h lib/video.h
+HFILES = spaceinvaders.h lib/gba.h lib/input.h lib/color.h lib/video.h lib/dma.h
 
 # The flags to run the vba program with
 # for a list of options run /usr/local/cs2110-tools/bin/vbam

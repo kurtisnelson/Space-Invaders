@@ -9,6 +9,8 @@
 #define SPACEINVADERS_H_
 #include "lib/gba.c"
 void runGame();
-
-
+void pauseGame();
+int resetCheck();
+void reset();
+extern u32 needReset;
 #endif /* SPACEINVADERS_H_ */

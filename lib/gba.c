@@ -1,4 +1,5 @@
 #include "gba.h"
 #include "color.h"
-#include "video.h"
+#include "video.c"
 #include "input.h"
+#include "dma.h"

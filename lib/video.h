@@ -17,6 +17,7 @@ extern u16 *videoBuffer;
 void setPixel(u32, u32, COLOR);
 COLOR color(u8, u8, u8);
 void drawRect(u32, u32, u32, u32, COLOR);
-void wait_vsync();
-drawImage3(int, int, int, int, const u16*);
+void waitForVBlank();
+void drawImage3(int, int, int, int, const u16*);
+void autoDraw(const u16*);
 #endif /* VIDEO_H_ */

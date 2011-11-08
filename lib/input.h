@@ -10,6 +10,7 @@
 #define REG_KEYINPUT (*(REG *) 0x04000130)
 #define REG_KEYCNT (*(REG *) 0x04000132)
 #define KEY_DOWN_NOW(key) (~REG_KEYINPUT & (key))
+#define KEY_RELEASED_WAIT(key) while(KEY_DOWN_NOW(key)){;}
 //Define some keys
 #define KEY_A (1)
 #define KEY_B (1 << 1)
