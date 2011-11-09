@@ -16,6 +16,7 @@ typedef struct {
   COLOR * image;
 } Alien;
 
-void drawAlien(Alien a);
-void moveAlien(Alien * a, int r, int c);
+void drawAlien(Alien);
+void moveAlien(Alien *, int, int);
+void hitAlien(Alien *);
 #endif /* ALIEN_H_ */

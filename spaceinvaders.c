@@ -115,9 +115,25 @@ startLevel(int level)
       //Move player
       if(!(counter % 10000))
         {
+          if(KEY_DOWN_NOW(KEY_LEFT))
+            {
 
+            }
+          else if(KEY_DOWN_NOW(KEY_RIGHT))
+            {
+
+            }
+        }
+      //Shoot
+      if(!(counter % 20000))
+        {
+          if(KEY_DOWN_NOW(KEY_A))
+            {
+
+            }
         }
       //Check for player v alien collision or projectile v alien collision
+      //TODO eliminate alien from array if dead
       counter++;
       if (needReset == 1 || resetCheck())
         return (0);
