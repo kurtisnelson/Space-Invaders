@@ -11,12 +11,12 @@ PROGNAME = SpaceInvaders
 
 # The object files you want to compile into your program
 # This should be a space (SPACE!) separated list of .o files
-OFILES = lib/video.o lib/dma.o images/paused.o images/title.o spaceinvaders.o
+OFILES = lib/video.o lib/dma.o images/paused.o images/title.o images/alien.o alien.o spaceinvaders.o
 
 # The header files you have created.
 # This is necessary to determine when to recompile for files.
 # This should be a space (SPACE!) separated list of .h files
-HFILES = lib/gba.h lib/input.h lib/color.h lib/video.h lib/dma.h images/paused.h images/title.h spaceinvaders.h
+HFILES = lib/gba.h lib/input.h lib/color.h lib/video.h lib/dma.h images/paused.h images/title.h images/alien.h alien.h spaceinvaders.h
 
 # The flags to run the vba program with
 # for a list of options run /usr/local/cs2110-tools/bin/vbam
