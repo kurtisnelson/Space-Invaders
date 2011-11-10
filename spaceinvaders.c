@@ -4,6 +4,7 @@
  *  Created on: Nov 7, 2011
  *      Author: kurt
  */
+#include <stdlib.h>
 #include "spaceinvaders.h"
 #include "alien.h"
 #include "player.h"
@@ -184,6 +185,35 @@ startLevel(int level)
             }
         }
 
+      //Possible alien shoot
+      if (!(counter % 12000))
+        {
+          if (!(rand() % 2))
+            {
+              //SHOOT
+              for (int i = numEnemies; i >= 0; i--)
+                {
+                  if (enemies[i].health > 0)
+                    {
+                      for (int j = 0; j < MAX_BULLETS; j++)
+                        {
+                          if (bullets[i].health == 0)
+                            {
+                              bullets[i].c = enemies[i].c + (ALIEN_WIDTH / 2);
+                              bullets[i].r = enemies[i].r + ALIEN_HEIGHT + 1;
+                              bullets[i].dR = 2;
+                              bullets[i].dC = 0;
+                              bullets[i].health = 1;
+                              bullets[i].image = (COLOR *) bulletImg;
+                              drawBullet(bullets[i]);
+                              break;
+                            }
+                        }
+                      break;
+                    }
+                }
+            }
+        }
       //Player shoot
       if (bulletTimer <= 0 && !(counter % 300))
         {
@@ -213,7 +243,7 @@ startLevel(int level)
         }
 
       //Check for player v alien collision or projectile v alien collision
-      if (!(counter % 100))
+      if (!(counter % 125))
         {
           for (int i = 0; i < numEnemies; i++)
             {
@@ -246,17 +276,22 @@ startLevel(int level)
                                     aliveEnemies--;
                                 }
                             }
-                          //Check bullet->player
-                          else
-                            {
-                              if (checkCollide(bullets[j].r, bullets[j].c, bullets[j].c + BULLET_WIDTH, player.r, player.c, player.c+PLAYER_WIDTH))
-                                {
-                                  //The player and the bullet should lose health
-                                  hitPlayer(&player);
-                                  hitBullet(&bullets[j]);
-                                }
-                            }
                         }
+                    }
+                }
+            } //End enemies check
+          //Check bullet -> player
+          for (int j = 0; j < MAX_BULLETS; j++)
+            {
+              if (bullets[j].health > 0)
+                {
+                  if (checkCollide(bullets[j].r + BULLET_HEIGHT, bullets[j].c,
+                      bullets[j].c + BULLET_WIDTH, player.r, player.c,
+                      player.c + PLAYER_WIDTH))
+                    {
+                      //The player and the bullet should lose health
+                      hitPlayer(&player);
+                      hitBullet(&bullets[j]);
                     }
                 }
             }
