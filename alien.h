@@ -8,7 +8,7 @@
 #ifndef ALIEN_H_
 #define ALIEN_H_
 #include "lib/gba.h"
-#include "images/alien.h"
+
 typedef struct {
   int r;
   int c;

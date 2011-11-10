@@ -5,6 +5,7 @@
  *      Author: kurt
  */
 #include "alien.h"
+#include "images/alien.h"
 #include "lib/color.h"
 #include "lib/video.h"
 

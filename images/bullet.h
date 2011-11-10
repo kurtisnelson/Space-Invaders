@@ -1,10 +1,10 @@
 /*
  * Exported with BrandonTools v0.9
- * Invocation command was BrandonTools -mode3 title title.png 
+ * Invocation command was BrandonTools -mode3 bullet bullet.png 
  * 
  * Image Information
  * -----------------
- * title.png 240@160
+ * bullet.png 5@5
  * 
  * Quote/Fortune of the Day!
  * -------------------------
@@ -13,11 +13,11 @@
  * All bug reports / feature requests are to be sent to Brandon (brandon.whitehead@gatech.edu)
  */
 
-#ifndef TITLE_BITMAP_H
-#define TITLE_BITMAP_H
+#ifndef BULLET_BITMAP_H
+#define BULLET_BITMAP_H
 
-extern const unsigned short title[38400];
-#define TITLE_WIDTH 240
-#define TITLE_HEIGHT 160
+extern const unsigned short bulletImg[25];
+#define BULLET_WIDTH 5
+#define BULLET_HEIGHT 5
 
 #endif
