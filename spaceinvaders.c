@@ -194,8 +194,6 @@ startLevel(int level)
       //Possible alien shoot
       if (!(counter % 15000))
         {
-          if (1)
-            {
               //SHOOT
               for (int i = numEnemies; i >= 0; i--)
                 {
@@ -205,8 +203,8 @@ startLevel(int level)
                         {
                           if (bullets[j].health <= 0)
                             {
-                              bullets[j].c = enemies[j].c + (ALIEN_WIDTH / 2);
-                              bullets[j].r = enemies[j].r + ALIEN_HEIGHT + 1;
+                              bullets[j].c = enemies[i].c + (ALIEN_WIDTH / 2);
+                              bullets[j].r = enemies[i].r + ALIEN_HEIGHT + 1;
                               bullets[j].dR = 2;
                               bullets[j].dC = 0;
                               bullets[j].health = 1;
@@ -218,7 +216,6 @@ startLevel(int level)
                       break;
                     }
                 }
-            }
         }
 
       //Player shoot
