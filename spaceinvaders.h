@@ -16,10 +16,12 @@
 void runGame();
 void pauseGame();
 void endGame();
+void deathFlash();
 int resetCheck();
 int checkCollide();
 int startLevel(int);
 void drawGame(Alien *, Player, Bullet *);
 void reset();
+void delay(int);
 extern u32 needReset;
 #endif /* SPACEINVADERS_H_ */

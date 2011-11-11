@@ -4,7 +4,7 @@
  *  Created on: Nov 7, 2011
  *      Author: kurt
  */
-#include <stdlib.h>
+//#include <stdlib.h>
 #include "spaceinvaders.h"
 #include "alien.h"
 #include "player.h"
@@ -65,8 +65,15 @@ runGame()
       if (levelResult == 0)
         {
           lives--;
+          deathFlash();
           if (lives <= 0)
             endGame();
+        }
+      else if (levelResult == -1)
+        {
+          if (needReset == 1)
+                  return;
+          endGame();
         }
       else
         {
@@ -85,19 +92,17 @@ startLevel(int level)
     numEnemies = 8;
   else if (level == 2)
     numEnemies = 15;
-  else if (level == 3)
-    numEnemies = 21;
-  else if (level == 3)
-    numEnemies = 26;
   else
-    numEnemies = 30;
+    numEnemies = 21;
   int aliveEnemies = numEnemies;
+
   //Setup player
   Player player;
   player.c = (SCREEN_WIDTH - PLAYER_WIDTH) / 2;
   player.r = 140;
-  player.health = 5;
+  player.health = 1;
   player.image = (COLOR *) playerImg;
+
   //Setup enemies
   Alien enemies[numEnemies];
   int dC = 0;
@@ -125,6 +130,7 @@ startLevel(int level)
       bullets[i].health = 0;
       bullets[i].image = 0;
     }
+  waitForVBlank();
   drawGame(enemies, player, bullets);
   volatile int counter = 0;
   int bulletTimer = 0;
@@ -186,9 +192,9 @@ startLevel(int level)
         }
 
       //Possible alien shoot
-      if (!(counter % 12000))
+      if (!(counter % 15000))
         {
-          if (!(rand() % 2))
+          if (1)
             {
               //SHOOT
               for (int i = numEnemies; i >= 0; i--)
@@ -197,15 +203,15 @@ startLevel(int level)
                     {
                       for (int j = 0; j < MAX_BULLETS; j++)
                         {
-                          if (bullets[i].health == 0)
+                          if (bullets[j].health <= 0)
                             {
-                              bullets[i].c = enemies[i].c + (ALIEN_WIDTH / 2);
-                              bullets[i].r = enemies[i].r + ALIEN_HEIGHT + 1;
-                              bullets[i].dR = 2;
-                              bullets[i].dC = 0;
-                              bullets[i].health = 1;
-                              bullets[i].image = (COLOR *) bulletImg;
-                              drawBullet(bullets[i]);
+                              bullets[j].c = enemies[j].c + (ALIEN_WIDTH / 2);
+                              bullets[j].r = enemies[j].r + ALIEN_HEIGHT + 1;
+                              bullets[j].dR = 2;
+                              bullets[j].dC = 0;
+                              bullets[j].health = 1;
+                              bullets[j].image = (COLOR *) bulletImg;
+                              drawBullet(bullets[j]);
                               break;
                             }
                         }
@@ -214,6 +220,7 @@ startLevel(int level)
                 }
             }
         }
+
       //Player shoot
       if (bulletTimer <= 0 && !(counter % 300))
         {
@@ -261,9 +268,6 @@ startLevel(int level)
                     {
                       if (bullets[j].health > 0)
                         {
-                          //Check bullet->alien
-                          if (bullets[j].dR < 0)
-                            {
                               if (checkCollide(enemies[i].r + ALIEN_HEIGHT,
                                   enemies[i].c, enemies[i].c + ALIEN_WIDTH,
                                   bullets[j].r, bullets[j].c,
@@ -275,19 +279,20 @@ startLevel(int level)
                                   if (enemies[i].health == 0)
                                     aliveEnemies--;
                                 }
-                            }
                         }
                     }
                 }
             } //End enemies check
-          //Check bullet -> player
+        }
+      //Check if bullet hit player
+      if (!(counter % 200))
+        {
           for (int j = 0; j < MAX_BULLETS; j++)
             {
               if (bullets[j].health > 0)
                 {
-                  if (checkCollide(bullets[j].r + BULLET_HEIGHT, bullets[j].c,
-                      bullets[j].c + BULLET_WIDTH, player.r, player.c,
-                      player.c + PLAYER_WIDTH))
+                  //checkCollision has some strange bug, so I'm not using it.
+                  if(bullets[j].r + BULLET_HEIGHT > player.r && bullets[j].c >= player.c && bullets[j].c <= player.c + PLAYER_WIDTH)
                     {
                       //The player and the bullet should lose health
                       hitPlayer(&player);
@@ -296,7 +301,6 @@ startLevel(int level)
                 }
             }
         }
-      //Check if bullet hit player
       //End level conditions:
       if (aliveEnemies <= 0)
         return (level + 1);
@@ -351,17 +355,16 @@ endGame()
     }
 }
 
+//Has a bug, no idea what.
 int
 checkCollide(int downBottom, int downLeft, int downRight, int upTop, int upLeft,
     int upRight)
 {
   if (downBottom >= upTop)
     {
-      if (downLeft <= upLeft)
-        if (downRight >= upLeft)
+      if (downLeft <= upLeft && downRight >= upLeft)
           return (1);
-      if (downRight >= upRight)
-        if (downLeft <= upRight)
+      if (downRight >= upRight && downLeft <= upRight)
           return (1);
     }
   return (0);
@@ -376,4 +379,21 @@ resetCheck()
       return (1);
     }
   return (0);
+}
+
+void
+deathFlash()
+{
+  waitForVBlank();
+  drawRect(0,0, SCREEN_WIDTH, SCREEN_HEIGHT, RED);
+  delay(1);
+}
+
+void
+delay(int i)
+{
+  volatile int waste = 0;
+  while(waste < i*100000)
+    waste++;
+  return;
 }

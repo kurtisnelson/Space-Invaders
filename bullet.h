@@ -19,5 +19,6 @@ typedef struct {
 
 void drawBullet(Bullet);
 void moveBullet(Bullet *);
+void zeroBullet(Bullet *);
 void hitBullet(Bullet *);
 #endif /* BULLET_H_ */

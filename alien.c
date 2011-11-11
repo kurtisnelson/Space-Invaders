@@ -17,6 +17,13 @@ drawAlien(Alien a)
   drawImage3(a.r, a.c, ALIEN_WIDTH, ALIEN_HEIGHT, a.image);
 }
 
+void zeroAlien(Alien * a)
+{
+  a->c = 0;
+  a->r = 0;
+  a->health = 0;
+  a->image = 0;
+}
 void
 moveAlien(Alien * a, int r, int c)
 {
@@ -39,8 +46,6 @@ hitAlien(Alien * a)
   if (a->health <= 0)
     {
       drawRect(a->r, a->c, ALIEN_WIDTH, ALIEN_HEIGHT, BLACK);
-      a->r = 0;
-      a->c = 0;
-      a->image = 0;
+      zeroAlien(a);
     }
 }

@@ -18,6 +18,15 @@ drawPlayer(Player a)
 }
 
 void
+zeroPlayer(Player * p)
+{
+  p->c = 0;
+  p->r = 0;
+  p->image = 0;
+  p->health = 0;
+}
+
+void
 movePlayer(Player * a, int r, int c)
 {
   if(a->health <= 0)
@@ -28,7 +37,12 @@ movePlayer(Player * a, int r, int c)
     a->c += c;
   if (a->r + r > 0 && a->r + r + PLAYER_HEIGHT < SCREEN_HEIGHT)
     a->r += r;
-  drawRect(oldR, oldC, PLAYER_WIDTH, PLAYER_HEIGHT, BLACK);
+  if(oldR - a->r != 0)
+    drawRect(oldR, oldC, PLAYER_WIDTH, PLAYER_HEIGHT, BLACK);
+  else if(a->c > oldC)
+    drawRect(oldR, oldC, c, PLAYER_HEIGHT, BLACK);
+  else if(a->c < oldC)
+    drawRect(oldR, a->c+PLAYER_WIDTH, -1*c, PLAYER_HEIGHT, BLACK);
   drawPlayer(*a);
 }
 
@@ -39,9 +53,7 @@ hitPlayer(Player * a)
   if (a->health <= 0)
     {
       drawRect(a->r, a->c, PLAYER_WIDTH, PLAYER_HEIGHT, BLACK);
-      a->r = 0;
-      a->c = 0;
-      a->image = 0;
+      zeroPlayer(a);
     }
 }
 

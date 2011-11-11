@@ -15,6 +15,7 @@ typedef struct {
   COLOR * image;
 } Player;
 
+void zeroPlayer(Player *);
 void drawPlayer(Player);
 void movePlayer(Player *, int, int);
 void hitPlayer(Player *);
