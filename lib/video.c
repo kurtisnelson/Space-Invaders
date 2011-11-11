@@ -34,6 +34,15 @@ waitForVBlank()
 void
 drawImage3(int r, int c, int width, int height, const u16* image)
 {
+  if(width == SCREEN_WIDTH && height == SCREEN_HEIGHT)
+    {
+      REG_DMA3SAD = (u32) image;
+      REG_DMA3DAD = (u32) videoBuffer;
+      REG_DMA3CNT = 0;
+      REG_DMA3CNT |= SCREEN_WIDTH*SCREEN_HEIGHT | DMA_ENABLE | DMA_16;
+    }
+  else
+    {
   int row = 0;
   while (row < height)
     {
@@ -44,11 +53,21 @@ drawImage3(int r, int c, int width, int height, const u16* image)
       image += width;
       row++;
     }
+    }
 }
 
 void
 drawRect(u32 r, u32 c, u32 width, u32 height, COLOR color)
 {
+  if(width == SCREEN_WIDTH && height == SCREEN_HEIGHT)
+    {
+      REG_DMA3SAD = (u32) &color;
+      REG_DMA3DAD = (u32) videoBuffer;
+      REG_DMA3CNT = 0;
+      REG_DMA3CNT |= SCREEN_WIDTH*SCREEN_HEIGHT | DMA_ENABLE | DMA_16 | DMA_SRC_FIXED;
+    }
+  else
+    {
   int row = 0;
   while (row < height)
     {
@@ -57,6 +76,7 @@ drawRect(u32 r, u32 c, u32 width, u32 height, COLOR color)
       REG_DMA3CNT = 0;
       REG_DMA3CNT |= width | DMA_ENABLE | DMA_16 | DMA_SRC_FIXED;
       row++;
+    }
     }
 }
 
