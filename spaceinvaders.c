@@ -4,7 +4,6 @@
  *  Created on: Nov 7, 2011
  *      Author: kurt
  */
-//#include <stdlib.h>
 #include "spaceinvaders.h"
 #include "alien.h"
 #include "player.h"
@@ -89,8 +88,6 @@ startLevel(int level)
 {
   //Setup level parameters
   if (level == 1)
-    numEnemies = 8;
-  else if (level == 2)
     numEnemies = 15;
   else
     numEnemies = 21;
